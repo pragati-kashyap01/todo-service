@@ -57,5 +57,4 @@ POST	       /todos	                      Create a todo
 PUT      	/todos/{todo_id}	               Update a todo
 PATCH	    /todos/{todo_id}/complete   	   Update completion status
 DELETE   	/todos/{todo_id}	                 Delete a todo
-GET	       /todos/search	                    Search todos
-GET	           /todos/stats	                 Get todo statistics
+
