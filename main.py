@@ -1,6 +1,6 @@
 import logging
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Query
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
 
@@ -75,7 +75,9 @@ def create_user(
     logger.info("Creating user: %s", user.name)
     return user_service.create_user(
         db,
-        user.name
+        user.name,
+        user.email,
+        user.password,
     
     )
 
@@ -150,11 +152,11 @@ def create_todo(
 def get_todos(
     status: str = None,
     priority: str = None,
-    user_id: int = None,
     q: str = None,
     sort: str = None,
     skip: int = 0,
     limit: int = 10,
+    user_id: int = Query(...),
     db: Session = Depends(get_db)
 ):
     return todo_service.get_todos(

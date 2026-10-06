@@ -7,11 +7,14 @@ from pydantic import BaseModel, Field
 class Todo(BaseModel):
     id: int
     title: str
-    description: str
+    description: str | None = None
     completed: bool
-    priority: str
-    due_date: str
-    user_id: int
+    priority: str | None = None
+    due_date: str | None = None
+    user_id: int | None = None
+
+class Config:
+    from_attributes = True
 
 
 class TodoCreate(BaseModel):
@@ -30,11 +33,16 @@ class TodoComplete(BaseModel):
 class UserCreate(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     email: str | None = None
+    password: str = Field(min_length=6)
     
 class UserResponse(BaseModel):
     id: int
     name:str
     email:str | None = None
     
-    class config:
-        from_attributes = True
+class config:
+    from_attributes = True
+        
+class LoginRequest(BaseModel):
+    email: str
+    password: str

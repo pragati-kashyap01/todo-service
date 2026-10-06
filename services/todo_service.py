@@ -3,7 +3,13 @@ from sqlalchemy.orm import Session
 from db_models import User, Todo
 from exceptions import UserNotFoundException, TodoNotFoundException
 
-
+# NOTE:
+# user_id is currently supplied by the client/request.
+# It is spoofable before authentication is implemented.
+# These ownership checks provide partial protection against
+# accidental cross-user access, not a complete security guarantee.
+# Once authentication is added, user_id should come from the
+# authenticated user/session instead of the request.
 
 # create todo
 
