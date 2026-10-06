@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from db_models import User
 from exceptions import UserNotFoundException
-
+from security import hash_password
 
 
 # create user
@@ -11,11 +11,13 @@ from exceptions import UserNotFoundException
 def create_user(
     db: Session,
     name: str,
-    email: str | None = None
+    email: str | None,
+    password: str
 ):
     new_user = User(
         name=name,
-        email=email
+        email=email,
+        password_hash=hash_password(password)
     )
 
     db.add(new_user)
